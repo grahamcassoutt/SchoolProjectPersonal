@@ -3,12 +3,12 @@ from .models import User
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
+import time
 
 authentication = Blueprint('authentication', __name__)
 
 @authentication.route('/signup', methods=['GET', 'POST'])
 def signup():
-    is_signup_page = True
     if request.method == 'POST':
         name = request.form.get('name')
         email = request.form.get('email')
@@ -29,7 +29,7 @@ def signup():
             db.session.add(newUser)
             db.session.commit()
             flash('Account Successfully created!', category='success')
-            login_user(user, remember=True)
+            login_user(newUser, remember=True)
             return redirect('/')
 
     data = request.form
@@ -38,7 +38,6 @@ def signup():
 
 @authentication.route('/login', methods=['GET', 'POST'])
 def login():
-    is_login_page = True
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
@@ -57,6 +56,5 @@ def login():
 @authentication.route('/logout')
 @login_required
 def logout():
-    is_logout_page = True
     logout_user()
     return redirect('/login')
