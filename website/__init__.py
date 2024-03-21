@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_migrate import Migrate
+from flask_login import LoginManager
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -11,16 +12,27 @@ def create_app():
     app.config['SECRET_KEY'] = 'valueOF433'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
 
+
+
     db.init_app(app)
     create_db(app)
     migrate = Migrate(app, db)
 
     from .views import views
     from .authentication import authentication
-    from .models import User, ToDoNote
+    from .models import User, Todonote
+
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(authentication, url_prefix='/')
+
+    login_manager = LoginManager()
+    login_manager.login_view = '/login'
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def loadUser(id):
+        return User.query.get(int(id))
 
     return app
 

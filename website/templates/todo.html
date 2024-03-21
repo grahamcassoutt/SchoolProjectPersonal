@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}To do{% endblock %}
+{% block content %}
+<br />
+<br />
+<ul class="list-group list-group-flush" id="todonote">
+    {%for todonote in user.todonotes%}
+        <li class="list-group-item">
+        {{todonote.data }}
+            <button type="button" class="close" onClick="deletetask({{todonote.id}})">
+                <span aria-hidden="true">x</span>
+            </button>
+        </li>
+    {%endfor %}
+</ul>
+<br />
+<form method="POST">
+    <textarea name="todotask" id="todotask" class="form-control"></textarea>
+    <br />
+    <button type="submit" class="btn btn-primary">Add Task</button>
+</form>
+{% endblock %}
