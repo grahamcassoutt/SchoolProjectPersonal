@@ -1,8 +1,12 @@
+<!-- Allows us to use code from base.html -->
 {% extends "base.html" %}
 {% block title %}Sign Up{% endblock %}
 {% block content %}
+<!-- Sign Up form-->
 <form method="POST">
+    <!--Header of form-->
     <h2>Sign Up</h2>
+     <!-- Sections of the form -->
     <div class="form-group">
         <label for="name">Name</label>
         <input type="text" class="form-control" id="name" name="name" placeholder="Enter name"/>

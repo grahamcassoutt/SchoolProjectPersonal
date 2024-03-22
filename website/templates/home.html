@@ -2,7 +2,9 @@
 {%block title %} Home {%endblock %}
 {%block content %}
 <br/>
+<!-- Search field for query of user notes -->
 <div align="center">
+    <!-- Calls the endpoint for the home (root) page -->
     <form method="POST" action="/" >
         <input type="text" name="searchQuery" placeholder="Enter a Task">
         <button type="submit">Search</button>
@@ -10,11 +12,14 @@
 </div>
 <br/>
 <br/>
+<!-- This is used to display all the notes one after the other  -->
 <ul>
+    <!-- Make sure that there is stuff to load onto the page -->
     {% if searchResults %}
         {%for result in searchResults%}
         <li class="list-group-item">
             {{result.data}}
+            <!-- Delete button -->
             <button type="button" class="close" onClick="deletetask({{result.id}})">
                 <span aria-hidden="true">x</span>
             </button>
