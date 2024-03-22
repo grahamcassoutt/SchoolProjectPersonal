@@ -1,3 +1,4 @@
+// This method is used to call the delete task endpoint
 function deletetask(taskId) {
   fetch("/deletetask", {
     method: "POST",
